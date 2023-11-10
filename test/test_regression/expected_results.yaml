@@ -1,0 +1,92 @@
+---
+dv: "A"
+ivs:
+  - "B"
+  - "C"
+
+parameters:
+  intercept: 20.6188
+  b: 0.0882
+  c: 0.0006
+
+t_tests:
+  intercept: 2.454
+  b: 0.475
+  c: 1.981
+
+p_values:
+  intercept: 0.050
+  b: 0.651
+  c: 0.095
+
+ses:
+  intercept: 8.402
+  b: 0.186
+  c: 0.000
+
+
+conf_intervals:
+  intercept:
+    - 0.059
+    - 41.179
+  b:
+    - -0.366
+    - 0.542
+  c:
+    - -0.000
+    - 0.001
+
+r2: 0.431
+r2_adj: 0.242
+
+f_stat:
+  value: 2.277
+  prob: 0.184
+
+log_likelihood: -33.099
+
+aic: 72.20
+bic: 72.79
+
+omnibus:
+  value: 1.583
+  prob: 0.453
+
+skew: 0.473
+kurtosis: 1.747
+d_watson: 1.176
+j_berra:
+  value: 0.924
+  prob: 0.630
+
+cond_no: 3.05e+04
+
+...
+
+#Intercept    20.618826
+#B             0.088220
+#C             0.000587
+#dtype: float64
+#                            OLS Regression Results
+#==============================================================================
+#Dep. Variable:                      A   R-squared:                       0.431
+#Model:                            OLS   Adj. R-squared:                  0.242
+#Method:                 Least Squares   F-statistic:                     2.277
+#Date:                Fri, 10 Nov 2023   Prob (F-statistic):              0.184
+#Time:                        00:00:07   Log-Likelihood:                -33.099
+#No. Observations:                   9   AIC:                             72.20
+#Df Residuals:                       6   BIC:                             72.79
+#Df Model:                           2
+#Covariance Type:            nonrobust
+#==============================================================================
+#                 coef    std err          t      P>|t|      [0.025      0.975]
+#------------------------------------------------------------------------------
+#Intercept     20.6188      8.402      2.454      0.050       0.059      41.179
+#B              0.0882      0.186      0.475      0.651      -0.366       0.542
+#C              0.0006      0.000      1.981      0.095      -0.000       0.001
+#==============================================================================
+#Omnibus:                        1.583   Durbin-Watson:                   1.176
+#Prob(Omnibus):                  0.453   Jarque-Bera (JB):                0.924
+#Skew:                           0.473   Prob(JB):                        0.630
+#Kurtosis:                       1.747   Cond. No.                     3.05e+04
+#==============================================================================

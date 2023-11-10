@@ -1,1 +1,1 @@
-from .regression_model import RegressionModel
+from .linear_regression import RegressionModel
