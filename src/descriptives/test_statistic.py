@@ -1,41 +1,51 @@
+from typing import NamedTuple
+
 from scipy.stats import t
 from abc import ABC, abstractmethod
+from descriptives.enums import TestStatisticType
 
-class TestStatistic(ABC):
+class ConfidenceInterval(NamedTuple):
+    lower: float
+    upper: float
+
+class TestStatistic():
+    def __init__(self, type_: TestStatisticType,
+                 value: float,
+                 p:float):
+        self.type_ = type_
+        self.value = value
+        self.p = p
+
+    def __repr__(self):
+        return (f"TestStatistic(type_='{self.type_}', "
+                f"value={round(self.value, 3)}, "
+                f"p={round(self.p, 3)}")
+
+
+class T(TestStatistic):
     def __init__(self,
                  value: float,
                  p: float,
                  se: float,
-                 degrees_freedom: int
+                 degrees_freedom: int,
+                 sig_level: float,
+                 ci: ConfidenceInterval,
                  ):
-        self.value = value
-        self.p = p
+        super().__init__(type_=TestStatisticType.T,
+                         value=value,
+                         p=p)
         self.se = se
         self.degrees_freedom = degrees_freedom
-
-    # Get confidence interval for the test statistic
-    @abstractmethod
-    def ci(self, sig_level:float) -> tuple[float, float]:
-        pass
-
-    # Get significance pass/fail for test statistic
-    @abstractmethod
-    def is_significant(self, sig_level:float) -> bool:
-        pass
-
-
-class T(TestStatistic):
-
-    # Get confidence interval for the test statistic
-    def ci(self, sig_level: float) -> tuple[float, float]:
-        critical_probability = 1-sig_level
-        critical_t = t.ppf(q=critical_probability,
-                           df=self.degrees_freedom)
-        distance_from_estimate = critical_t * self.se
-        return (self.value + distance_from_estimate, self.value - distance_from_estimate,)
-
-    # Get significance pass/fail for test statistic
-    def is_significant(self, sig_level: float) -> bool:
-        confidence_interval = self.ci(sig_level)
-        # Confidence interval captures zero or not
-        return confidence_interval[0] * confidence_interval[1] > 0
+        self.sig_level = sig_level
+        self.ci = ci
+        # Determine whether confidence interval captures zero (think about it).
+        self.reject_H0 = self.ci.upper * self.ci.lower > 0
+    def __repr__(self):
+        return (f"T(type_='{self.type_}', "
+                f"value={round(self.value,3)}, "
+                f"p={round(self.p,3)}, "
+                f"se={round(self.se)}, "
+                f"degrees_freedom={self.degrees_freedom},"
+                f"sig_level={self.sig_level},"
+                f"ci={self.ci},"
+                f"reject_H0={self.reject_H0}")

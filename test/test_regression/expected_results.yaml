@@ -1,65 +1,73 @@
 ---
-dv: "A"
-ivs:
-  - "B"
-  - "C"
+model_inputs:
+  dv: "A"
+  ivs:
+    - "B"
+    - "C"
 
-parameters:
-  intercept: 20.6188
-  b: 0.0882
-  c: 0.0006
+pre_regression_properties:
+  N: 9
+  iv_count: 2
+  beta_degrees_freedom: 6
 
-t_tests:
-  intercept: 2.454
-  b: 0.475
-  c: 1.981
+parameter_properties:
+  beta_value:
+    const: 20.6188
+    B: 0.0882
+    C: 0.0006
 
-p_values:
-  intercept: 0.050
-  b: 0.651
-  c: 0.095
+  t_test:
+    const: 2.454
+    B: 0.475
+    C: 1.981
 
-ses:
-  intercept: 8.402
-  b: 0.186
-  c: 0.000
+  p_value:
+    const: 0.050
+    B: 0.651
+    C: 0.095
+
+  se:
+    const: 8.402
+    B: 0.186
+    C: 0.000
 
 
-conf_intervals:
-  intercept:
-    - 0.059
-    - 41.179
-  b:
-    - -0.366
-    - 0.542
-  c:
-    - -0.000
-    - 0.001
+  conf_interval:
+    const:
+      - 0.059
+      - 41.179
+    B:
+      - -0.366
+      - 0.542
+    C:
+      - -0.000
+      - 0.001
 
-r2: 0.431
-r2_adj: 0.242
+model_properties:
+  r2: 0.431
+  r2_adj: 0.242
 
-f_stat:
-  value: 2.277
-  prob: 0.184
+  f_stat:
+    value: 2.277
+    prob: 0.184
 
-log_likelihood: -33.099
+  log_likelihood: -33.099
 
-aic: 72.20
-bic: 72.79
+  aic: 72.20
+  bic: 72.79
 
-omnibus:
-  value: 1.583
-  prob: 0.453
+  omnibus:
+    value: 1.583
+    prob: 0.453
 
-skew: 0.473
-kurtosis: 1.747
-d_watson: 1.176
-j_berra:
-  value: 0.924
-  prob: 0.630
+  skew: 0.473
+  kurtosis: 1.747
+  d_watson: 1.176
+  j_berra:
+    value: 0.924
+    prob: 0.630
 
-cond_no: 3.05e+04
+  cond_no: 3.05e+04
 
 ...
 
