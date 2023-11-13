@@ -31,7 +31,7 @@ def exponentiate(df_column: DataFrame, order:int):
 
 def label_quantiles(df: DataFrame, by_col_name: str, divisions: int, quantile_col_name: str):
     n = len(df)
-    sorted_df = df.sort_values(by="user_email_count", ascending=True)
+    sorted_df = df.sort_values(by=by_col_name, ascending=True)
     bucket_size = math.floor(n / divisions)
     remainder = n % divisions
     quantile_array = []
