@@ -1,16 +1,25 @@
 from pandas import DataFrame
 from pandas_helper import is_column
-import pandas as pd
+
 import math
+
+# TODO write test functions for all these
+def center(df_column: DataFrame):
+    # Make sure df is one column only
+    assert is_column(df_column)
+    # Create new column name based on old column name
+    old_name = df_column.columns[0]
+    new_name = f"{old_name}_centered"
+    centered_column = df_column.apply(lambda x: x - df_column.mean())
+    centered_column.rename(columns={old_name: new_name})
+    return centered_column
 def z_normalize():
     pass
 
 def min_max_normalize():
     pass
 
-def center():
-    pass
-s
+
 def categorical_strings_to_values():
     pass
 

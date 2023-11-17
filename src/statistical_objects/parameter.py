@@ -1,7 +1,7 @@
 from numbers import Number
 from typing import NamedTuple
-from descriptives.enums import TestStatisticType
-from descriptives.test_statistic import T
+from statistical_objects.enums import TestStatisticType
+from statistical_objects.test_statistic import T
 from abc import ABC
 class Parameter(ABC):
     def __init__(self,

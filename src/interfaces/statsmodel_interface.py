@@ -1,9 +1,9 @@
 from pandas import DataFrame
 from numpy import ndarray
 
-from descriptives.enums import ParameterType, TestStatisticType
-from descriptives.parameter import Parameter, Beta
-from descriptives.test_statistic import T, ConfidenceInterval
+from statistical_objects.enums import ParameterType, TestStatisticType
+from statistical_objects.parameter import Parameter, Beta
+from statistical_objects.test_statistic import T, ConfidenceInterval
 import statsmodels.api as sm
 
 

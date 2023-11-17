@@ -2,7 +2,7 @@ from typing import NamedTuple
 
 from scipy.stats import t
 from abc import ABC, abstractmethod
-from descriptives.enums import TestStatisticType
+from statistical_objects.enums import TestStatisticType
 
 class ConfidenceInterval(NamedTuple):
     lower: float
@@ -49,3 +49,8 @@ class T(TestStatistic):
                 f"sig_level={self.sig_level},"
                 f"ci={self.ci},"
                 f"reject_H0={self.reject_H0}")
+class F(TestStatistic):
+    def __init__(self, value, p):
+        super().__init__(type_=TestStatisticType.F,
+                     value=value,
+                     p=p)

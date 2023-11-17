@@ -77,7 +77,7 @@ def test_regression_results_pre_model_properties(regression_data, expected_regre
    assert model.iv_count == expected_iv_count
    assert model.beta_degrees_freedom == expected_beta_degrees_freedom
 
-def test_regression_results_post_model_properties(regression_data, expected_regression_results):
+def test_regression_results_fit_stats(regression_data, expected_regression_results):
 
    dv_name = "A"
    iv_names = ["B","C"]
@@ -89,8 +89,42 @@ def test_regression_results_post_model_properties(regression_data, expected_regr
 
    # post-regression properties
    expected_model_properties = expected_regression_results["model_properties"]
+
    # R2
    expected_r2 = expected_model_properties["r2"]
-   expected_r2_adj = expected_model_properties["r2_adj"]\
-
+   expected_r2_adj = expected_model_properties["r2_adj"]
    assert model.r2 == pytest.approx(expected_r2, abs=ROUNDING_ERROR)
+   assert model.r2_adj == pytest.approx(expected_r2_adj, abs=ROUNDING_ERROR)
+
+   # F
+   expected_f = expected_model_properties["f_stat"]
+   expected_f_value = expected_f["value"]
+   expected_f_prob = expected_f["prob"]
+   assert model.f.value == pytest.approx(expected_f_value, abs=ROUNDING_ERROR)
+   assert model.f.p == pytest.approx(expected_f_prob, abs=ROUNDING_ERROR)
+
+def test_regression_results_the_rest(regression_data, expected_regression_results):
+    dv_name = "A"
+    iv_names = ["B", "C"]
+    sig_level = 0.05
+    model = RegressionModel(df=regression_data,
+                            dv_name=dv_name,
+                            iv_names=iv_names,
+                            sig_level=sig_level)
+
+    expected_model_properties = expected_regression_results["model_properties"]
+
+    # Shape
+    expected_skew = expected_model_properties["skew"]
+    expected_kurtosis = expected_model_properties["kurtosis"]
+    assert model.skew == pytest.approx(expected_skew, abs=ROUNDING_ERROR)
+    # assert model.kurtosis==pytest.approx(expected_kurtosis, abs=ROUNDING_ERROR)
+
+    # # Model Tests
+    # expected_d_watson = expected_regression_results["d_watson"]
+    # assert model.d_watson == pytest.approx(expected_d_watson, abs=ROUNDING_ERROR)
+    #
+    # expected_j_berra_value = expected_regression_results["j_berra"]["value"]
+    # expected_j_berra_p = expected_regression_results["j_berra"]["p"]
+    # assert model.j_berra.value == pytest.approx(expected_j_berra_value, abs=ROUNDING_ERROR)
+    # assert model.j_berra.p == pytest.approx(expected_j_berra_p, abs=ROUNDING_ERROR)
