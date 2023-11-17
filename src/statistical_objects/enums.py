@@ -10,3 +10,4 @@ class ParameterType(enum.Enum):
 class TestStatisticType(enum.Enum):
     T="t"
     F="F"
+    J_BERRA = "j_berra"

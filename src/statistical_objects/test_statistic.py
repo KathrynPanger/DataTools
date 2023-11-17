@@ -54,3 +54,9 @@ class F(TestStatistic):
         super().__init__(type_=TestStatisticType.F,
                      value=value,
                      p=p)
+
+class JBerra(TestStatistic):
+    def __init__(self, value, p):
+        super().__init__(type_=TestStatisticType.J_BERRA,
+                     value=value,
+                     p=p)

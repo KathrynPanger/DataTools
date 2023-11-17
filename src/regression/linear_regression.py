@@ -1,6 +1,6 @@
 from pandas import DataFrame
 import statsmodels.api as sm
-from statistical_objects.test_statistic import F
+from statistical_objects.test_statistic import F, JBerra
 from interfaces.statsmodel_interface import _ivs_with_constant, _extract_parameters
 from statsmodels.stats.stattools import robust_kurtosis, durbin_watson
 from scipy.stats import skew, kurtosis
@@ -62,6 +62,8 @@ class RegressionModel:
         self.aic = self.results.aic
         self.bic = self.results.bic
         self.cond_no = self.results.condition_number
+
+
 
         # Create Printable Summary
         self.summary = self.results.summary(alpha=self.sig_level)
