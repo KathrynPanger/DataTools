@@ -2,7 +2,7 @@ from pandas import DataFrame
 import statsmodels.api as sm
 from statistical_objects.test_statistic import F
 from interfaces.statsmodel_interface import _ivs_with_constant, _extract_parameters
-from statsmodels.stats.stattools import robust_kurtosis
+from statsmodels.stats.stattools import robust_kurtosis, durbin_watson
 from scipy.stats import skew, kurtosis
 
 #TODO heterosketasticity tests, explanation of each statistic interpretation
@@ -38,6 +38,7 @@ class RegressionModel:
         self.r2 = self.results.rsquared
         self.r2_adj = self.results.rsquared_adj
         self.f = F(value=self.results.fvalue, p=self.results.f_pvalue)
+        self.log_likelihood = self.results.llf
 
 
         ## Parameters
@@ -52,9 +53,15 @@ class RegressionModel:
         self.residuals_normalized = self.results.resid_pearson
 
         ## Shape
-        # self.kurtosis = robust_kurtosis(y=self.results.resid_pearson)
+        self.kurtosis = robust_kurtosis(y=self.results.resid_pearson)
+        # self.kurtosis = kurtosis(self.residuals_normalized)
         self.skew = skew(self.residuals_normalized)
 
+        # Model Tests
+        self.d_watson = durbin_watson(self.results.resid)
+        self.aic = self.results.aic
+        self.bic = self.results.bic
+        self.cond_no = self.results.condition_number
 
         # Create Printable Summary
         self.summary = self.results.summary(alpha=self.sig_level)
