@@ -120,7 +120,7 @@ def test_regression_results_the_rest(regression_data, expected_regression_result
     assert model.skew == pytest.approx(expected_skew, abs=ROUNDING_ERROR_STRICT)
 
     expected_kurtosis = expected_model_properties["kurtosis"]
-    # assert model.kurtosis==pytest.approx(expected_kurtosis, abs=ROUNDING_ERROR)
+    assert model.kurtosis==pytest.approx(expected_kurtosis, abs=ROUNDING_ERROR_STRICT)
 
     # # Model Tests
     expected_d_watson = expected_model_properties["d_watson"]
@@ -139,7 +139,7 @@ def test_regression_results_the_rest(regression_data, expected_regression_result
     expected_cond_no = expected_model_properties["cond_no"]
     assert model.cond_no == pytest.approx(expected_cond_no, abs=ROUNDING_ERROR_CRAZY)
 
-    # expected_j_berra_value = expected_regression_results["j_berra"]["value"]
-    # expected_j_berra_p = expected_regression_results["j_berra"]["p"]
-    # assert model.j_berra.value == pytest.approx(expected_j_berra_value, abs=ROUNDING_ERROR)
-    # assert model.j_berra.p == pytest.approx(expected_j_berra_p, abs=ROUNDING_ERROR)
+    expected_j_berra_value = expected_regression_results["model_properties"]["j_berra"]["value"]
+    assert model.jarque_berra.value == pytest.approx(expected_j_berra_value, abs=ROUNDING_ERROR_STRICT)
+    expected_j_berra_p = expected_regression_results["model_properties"]["j_berra"]["prob"]
+    assert model.jarque_berra.p == pytest.approx(expected_j_berra_p, abs=ROUNDING_ERROR_STRICT)

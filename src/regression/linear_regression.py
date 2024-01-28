@@ -1,8 +1,8 @@
 from pandas import DataFrame
 import statsmodels.api as sm
 from statistical_objects.test_statistic import F, JBerra
-from interfaces.statsmodel_interface import _ivs_with_constant, _extract_parameters
-from statsmodels.stats.stattools import robust_kurtosis, durbin_watson
+from interfaces.statsmodel_interface import _ivs_with_constant, _extract_parameters, _extract_jarque_berra_skew_kurtosis
+from statsmodels.stats.stattools import robust_kurtosis, durbin_watson, jarque_bera
 from scipy.stats import skew, kurtosis
 
 #TODO heterosketasticity tests, explanation of each statistic interpretation
@@ -52,18 +52,16 @@ class RegressionModel:
         self.residuals = self.results.resid
         self.residuals_normalized = self.results.resid_pearson
 
-        ## Shape
-        self.kurtosis = robust_kurtosis(y=self.results.resid_pearson)
-        # self.kurtosis = kurtosis(self.residuals_normalized)
-        self.skew = skew(self.residuals_normalized)
-
         # Model Tests
         self.d_watson = durbin_watson(self.results.resid)
+        self.jarque_berra, self.skew, self.kurtosis = _extract_jarque_berra_skew_kurtosis(self.residuals_normalized)
+
         self.aic = self.results.aic
         self.bic = self.results.bic
         self.cond_no = self.results.condition_number
 
 
-
-        # Create Printable Summary
-        self.summary = self.results.summary(alpha=self.sig_level)
+# TODO make and test summarize command (below)
+        ## Create printable summary
+        # def summarize():
+        # return self.results.summary(alpha=self.sig_level)

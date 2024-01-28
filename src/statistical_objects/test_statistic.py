@@ -9,9 +9,10 @@ class ConfidenceInterval(NamedTuple):
     upper: float
 
 class TestStatistic():
-    def __init__(self, type_: TestStatisticType,
+    def __init__(self,
+                 type_: TestStatisticType,
                  value: float,
-                 p:float):
+                 p: float):
         self.type_ = type_
         self.value = value
         self.p = p

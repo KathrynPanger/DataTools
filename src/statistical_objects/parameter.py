@@ -1,12 +1,12 @@
 from numbers import Number
 from typing import NamedTuple
-from statistical_objects.enums import TestStatisticType
+from statistical_objects.enums import TestStatisticType, ParameterType
 from statistical_objects.test_statistic import T
 from abc import ABC
-class Parameter(ABC):
+class Parameter():
     def __init__(self,
                  iv_name,
-                 type_:TestStatisticType,
+                 type_: ParameterType,
                  value:Number,
                  t: T):
         self.iv_name = iv_name
@@ -15,6 +15,19 @@ class Parameter(ABC):
         self.t = t
 
 class Beta(Parameter):
+    def __init__(self,
+                 iv_name,
+                 type_,
+                 value,
+                 t,
+                 eigenvalue):
+        super().__init__(
+            iv_name = iv_name,
+            type_=ParameterType.BETA,
+            value=value,
+            t=t)
+        self.eigenvalue = eigenvalue
+
     def __str__(self):
         return (f"Beta(iv_name='{self.iv_name}', "
                 f"value={round(self.value,3)}, "
