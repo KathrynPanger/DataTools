@@ -20,13 +20,14 @@ class Beta(Parameter):
                  type_,
                  value,
                  t,
-                 eigenvalue):
+                 # eigenvalue,
+                 ):
         super().__init__(
             iv_name = iv_name,
             type_=ParameterType.BETA,
             value=value,
             t=t)
-        self.eigenvalue = eigenvalue
+        # self.eigenvalue = eigenvalue
 
     def __str__(self):
         return (f"Beta(iv_name='{self.iv_name}', "

@@ -47,7 +47,8 @@ def _extract_parameters(results, iv_names: list[str], sig_level:float, degrees_f
                     type_=ParameterType.BETA,
                     value=beta_value,
                     t=t,
-                    eigenvalue=eigenvalue)
+                    #eigenvalue=eigenvalue
+                     )
         parameters[iv_name] = beta
     return parameters
 
