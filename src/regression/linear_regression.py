@@ -1,3 +1,7 @@
+from collections.abc import Sequence, Mapping
+from numbers import Number
+
+
 from pandas import DataFrame
 import statsmodels.api as sm
 from statistical_objects.test_statistic import F, JBerra
@@ -42,11 +46,11 @@ class RegressionModel:
 
 
         ## Parameters
-        self.betas = _extract_parameters(results=self.results,
-                                         iv_names=self.iv_names,
-                                         sig_level=self.sig_level,
-                                         degrees_freedom=self.beta_degrees_freedom,
-                                         )
+        self.parameters = _extract_parameters(results=self.results,
+                                              iv_names=self.iv_names,
+                                              sig_level=self.sig_level,
+                                              degrees_freedom=self.beta_degrees_freedom,
+                                              )
 
         # TODO: Test residuals
         self.residuals = self.results.resid
@@ -60,8 +64,23 @@ class RegressionModel:
         self.bic = self.results.bic
         self.cond_no = self.results.condition_number
 
+# TODO make and test command to predict new values from parameters (below)
+
+    def predict_y_from_values(self, proposed_dv_values: Mapping[str:Number]):
+        betas = self.parameters
+        # Calculate result: start with 0, add intercept
+        # y = a + b_0 + b_1 ... + b_n
+        result = betas.pop("const").value
+        # Make sure user-entered variable names are correct
+        assert proposed_dv_values.keys() == betas.keys(), "Variable names and quantity must match fitted model."
+        for variable_name in proposed_dv_values.keys():
+            # Adding slope * value to th
+            result += (betas[variable_name].value * proposed_dv_values[variable_name])
+        return result
 
 # TODO make and test summarize command (below)
         ## Create printable summary
         # def summarize():
         # return self.results.summary(alpha=self.sig_level)
+
+

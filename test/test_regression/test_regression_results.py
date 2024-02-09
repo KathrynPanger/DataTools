@@ -36,7 +36,7 @@ def test_regression_results_betas(regression_data, expected_regression_results):
     # Get parameter and associated t properties
     expected_properties = expected_regression_results["parameter_properties"]
 
-    model_betas = model.betas
+    model_betas = model.parameters
     for iv_name in iv_names:
         beta = model_betas[iv_name]
         expected_value = expected_properties["beta_value"][iv_name]
@@ -143,3 +143,51 @@ def test_regression_results_the_rest(regression_data, expected_regression_result
     assert model.jarque_berra.value == pytest.approx(expected_j_berra_value, abs=ROUNDING_ERROR_STRICT)
     expected_j_berra_p = expected_regression_results["model_properties"]["j_berra"]["prob"]
     assert model.jarque_berra.p == pytest.approx(expected_j_berra_p, abs=ROUNDING_ERROR_STRICT)
+
+#Predict value of the DV given a list of values for the IVs input by the user
+# when user input values are all 1s
+def test_predict_y_from_values_all_ones(regression_data, expected_regression_results):
+    dv_name = "A"
+    iv_names = ["B", "C"]
+    sig_level = 0.05
+    model = RegressionModel(df=regression_data,
+                            dv_name=dv_name,
+                            iv_names=iv_names,
+                            sig_level=sig_level)
+    proposed_dv_values = {"B": 1, "C": 1}
+    expected_parameters = expected_regression_results["parameter_properties"]["beta_value"]
+    expected_results = expected_parameters["const"] + expected_parameters["B"] + expected_parameters["C"]
+    prediction = model.predict_y_from_values(proposed_dv_values)
+    assert prediction == pytest.approx(expected_results, abs = ROUNDING_ERROR_STRICT)
+
+#Predict value of the DV given a list of values for the IVs input by the user
+# when user input values are 5 and 0
+def test_predict_y_from_values_5_0(regression_data, expected_regression_results):
+    dv_name = "A"
+    iv_names = ["B", "C"]
+    sig_level = 0.05
+    model = RegressionModel(df=regression_data,
+                            dv_name=dv_name,
+                            iv_names=iv_names,
+                            sig_level=sig_level)
+    proposed_dv_values = {"B": 5, "C": 0}
+    expected_parameters = expected_regression_results["parameter_properties"]["beta_value"]
+    expected_results = expected_parameters["const"] + (expected_parameters["B"] * 5) + 0
+    prediction = model.predict_y_from_values(proposed_dv_values)
+    assert prediction == pytest.approx(expected_results, abs = ROUNDING_ERROR_STRICT)
+
+def test_predict_y_from_values_500_2(regression_data, expected_regression_results):
+    dv_name = "A"
+    iv_names = ["B", "C"]
+    sig_level = 0.05
+    model = RegressionModel(df=regression_data,
+                            dv_name=dv_name,
+                            iv_names=iv_names,
+                            sig_level=sig_level)
+    proposed_dv_values = {"B": 500, "C": 2}
+    expected_parameters = expected_regression_results["parameter_properties"]["beta_value"]
+    expected_results = (expected_parameters["const"] + (expected_parameters["B"] * 500)
+                        + (expected_parameters["C"] * 2))
+    prediction = model.predict_y_from_values(proposed_dv_values)
+    assert prediction == pytest.approx(expected_results, abs=ROUNDING_ERROR_CRAZY)
+    print(prediction)

@@ -20,7 +20,7 @@ def _ivs_with_constant(df: DataFrame) -> DataFrame:
     return sm.add_constant(df)
 
 
-def _extract_parameters(results, iv_names: list[str], sig_level:float, degrees_freedom) -> dict[str, Beta]:
+def _extract_parameters(results, iv_names: list[str], sig_level:float, degrees_freedom) -> dict[str, Parameter]:
     iv_names.append("const")
     params = results.params
     ts = results.tvalues
@@ -36,7 +36,7 @@ def _extract_parameters(results, iv_names: list[str], sig_level:float, degrees_f
         p = ps.loc[iv_name]
         se = bses.loc[iv_name]
         ci = ConfidenceInterval(*(cis.loc[iv_name]).values)
-        eigenvalue = eigenvalues[i]
+        # eigenvalue = eigenvalues[i]
         t = T(value=t_value,
               p=p,
               se=se,
@@ -47,7 +47,7 @@ def _extract_parameters(results, iv_names: list[str], sig_level:float, degrees_f
                     type_=ParameterType.BETA,
                     value=beta_value,
                     t=t,
-                    #eigenvalue=eigenvalue
+                    # eigenvalue=eigenvalue
                      )
         parameters[iv_name] = beta
     return parameters
