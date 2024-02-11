@@ -4,7 +4,7 @@ import yaml
 
 @pytest.fixture
 def regression_data():
-    path = "test_data.csv"
+    path = "test_regression_data.csv"
     df = pd.read_csv(path)
     return df
 
@@ -14,3 +14,5 @@ def expected_regression_results():
     with open(expected_results_path, 'r') as file:
         expected_results = yaml.safe_load(file)
     return expected_results
+
+

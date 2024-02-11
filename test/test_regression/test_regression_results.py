@@ -11,7 +11,7 @@ ROUNDING_ERROR_CRAZY = 12
 
 @pytest.fixture
 def regression_data():
-    path = "test_regression/test_data.csv"
+    path = "test_regression/test_regression_data.csv"
     df = pd.read_csv(path)
     return df
 
@@ -45,6 +45,7 @@ def test_regression_results_betas(regression_data, expected_regression_results):
         expected_se = expected_properties["se"][iv_name]
         ## YAMIL files cannot handle tuples, we must cast it
         expected_ci = tuple(expected_properties["conf_interval"][iv_name])
+
         # beta
         assert beta.value == pytest.approx(expected_value, abs=ROUNDING_ERROR_STRICT)
 
