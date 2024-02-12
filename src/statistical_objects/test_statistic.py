@@ -61,3 +61,11 @@ class JBerra(TestStatistic):
         super().__init__(type_=TestStatisticType.J_BERRA,
                      value=value,
                      p=p)
+
+class ChiSquare(TestStatistic):
+    def __init__(self, value, p, expected, observed):
+        super().__init__(type_=TestStatisticType.CHI_SQUARE,
+                     value=value,
+                     p=p)
+        self.expected = expected
+        self.observed = observed
