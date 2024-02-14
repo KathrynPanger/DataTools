@@ -1,7 +1,7 @@
 import pytest
 import pandas as pd
 
-from descriptives.pandas_descriptives import summarize_one, describe_one
+from descriptives.pandas_descriptives import describe_one, describe_one, summarize_one
 
 
 @pytest.fixture
@@ -10,7 +10,7 @@ def pandas_data():
     df = pd.read_csv(path)
     return df
 def test_summarize_one(pandas_data):
-    result = summarize_one(df=pandas_data, col_name="int_var")
+    result = describe_one(df=pandas_data, col_name="int_var")
     assert result == {"variable": "int_var",
                       "q1": [1],
                       "mean": [1.25],
@@ -20,6 +20,6 @@ def test_summarize_one(pandas_data):
                       "max": [2],
                       "std": [0.5]
                       }
-def test_describe_one(pandas_data):
-    description = describe_one(df=pandas_data, col_name="cat_var")
+def test_summarize_one(pandas_data):
+    summary = summarize_one(df=pandas_data, col_name="cat_var")
     print(description)
