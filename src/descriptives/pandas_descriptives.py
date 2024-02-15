@@ -47,7 +47,7 @@ def describe_continuous(df: pd.DataFrame, col_name: str) -> dict[str, Number]:
 def describe_many_continuous(df:pd.DataFrame, varlist: list[str]) -> pd.DataFrame:
     summary_df = pd.DataFrame()
     for i in range(len(varlist)):
-        one_variable = pd.DataFrame(describe_continuous(df=summary_df, col_name=varlist[i]))
+        one_variable = pd.DataFrame(describe_continuous(df=df, col_name=varlist[i]))
         if i == 0:
             summary_df = one_variable
         else:
