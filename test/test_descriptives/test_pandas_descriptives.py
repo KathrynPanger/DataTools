@@ -32,3 +32,15 @@ def test_get_frequencies(pandas_data):
     print(result_df)
     print(expected_result_df)
     assert_frame_equal(result_df, expected_result_df, check_dtype=False)
+
+def test_describe_categorical(pandas_data):
+    result = describe_categorical(df=pandas_data, col_name="cat_var").set_index(keys="value").sort_values(by="value")
+    expected_result_dict = {'value':
+                                ['TM', 'NB', 'Female', 'Male', 'TW'],
+                            'count':
+                                [1, 1, 2, 2, 1],
+                            'relative_frequency':
+                                [0.2, 0.2, 0.4, 0.4, 0.2]
+                            }
+    expected_result = pd.DataFrame(expected_result_dict).set_index(keys="value").sort_values(by="value")
+    assert_frame_equal(result, expected_result, check_dtype=False)

@@ -22,7 +22,7 @@ def get_frequencies(df: pd.DataFrame, col_name: str) -> dict[str, list[Number]]:
 
 
 def describe_categorical(df: pd.DataFrame, col_name: str) -> dict[str, Number]:
-    summary = pd.DataFrame(get_frequencies(df, col_name), columns = [col_name, "count"])
+    summary = pd.DataFrame(get_frequencies(df, col_name))
     n = len(summary)
     summary["relative_frequency"] = summary["count"]/n
     return summary
