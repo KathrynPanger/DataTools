@@ -1,4 +1,6 @@
 from typing import NamedTuple
+import pandas as pd
+pd.set_option('display.max_columns', None)
 
 from scipy.stats import t
 from abc import ABC, abstractmethod
@@ -61,3 +63,21 @@ class JBerra(TestStatistic):
         super().__init__(type_=TestStatisticType.J_BERRA,
                      value=value,
                      p=p)
+
+class ChiSquare(TestStatistic):
+    def __init__(self,
+                 chi_contribution,
+                 value,
+                 p,
+                 expected_frequency,
+                 expected_relative_frequency,
+                 observed_frequency,
+                 observed_relative_frequency):
+        super().__init__(type_=TestStatisticType.CHI_SQUARE,
+                         value=value,
+                     p=p)
+        self.chi_contribution = chi_contribution
+        self.expected_frequency = expected_frequency
+        self.expected_relative_frequency = expected_relative_frequency
+        self.observed_frequency = observed_frequency
+        self.observed_relative_frequency = observed_relative_frequency
