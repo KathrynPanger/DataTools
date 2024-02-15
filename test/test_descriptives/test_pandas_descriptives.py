@@ -1,7 +1,9 @@
 import pytest
 import pandas as pd
 
-from descriptives.pandas_descriptives import describe_one, describe_one, summarize_one
+from descriptives.pandas_descriptives import describe_continuous, describe_continuous, describe_categorical, \
+    get_frequencies
+from pandas.testing import assert_frame_equal
 
 
 @pytest.fixture
@@ -9,17 +11,24 @@ def pandas_data():
     path = "test_descriptives/pandas_descriptives_test_data.csv"
     df = pd.read_csv(path)
     return df
-def test_summarize_one(pandas_data):
-    result = describe_one(df=pandas_data, col_name="int_var")
-    assert result == {"variable": "int_var",
+def test_describe_continuous(pandas_data):
+    result = describe_continuous(df=pandas_data, col_name="int_var")
+    assert result == {
+        "variable": ["int_var"],
                       "q1": [1],
-                      "mean": [1.25],
-                      "q3": [1.25],
-                      "median": [1],
+                      "mean": [2],
+                      "q3": [3],
+                      "median": [2],
                       "min": [1],
-                      "max": [2],
-                      "std": [0.5]
-                      }
-def test_summarize_one(pandas_data):
-    summary = summarize_one(df=pandas_data, col_name="cat_var")
-    print(description)
+                      "max": [3],
+                      "std": [1],
+    }
+
+def test_get_frequencies(pandas_data):
+    result = get_frequencies(df=pandas_data, col_name="cat_var")
+    expected_result = {'value': ['TM', 'NB', 'Female', 'Male', 'TW'], 'count': [1, 1, 2, 2, 1]}
+    expected_result_df =pd.DataFrame(expected_result).sort_values(by="value").set_index(keys="value")
+    result_df = pd.DataFrame(result).sort_values(by="value").set_index(keys="value")
+    print(result_df)
+    print(expected_result_df)
+    assert_frame_equal(result_df, expected_result_df, check_dtype=False)

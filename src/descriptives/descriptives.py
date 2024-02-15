@@ -10,3 +10,4 @@ def get_frequencies(data: Sequence) -> dict[str, Number]:
             cats_to_counts[item] = 1
         else:
             cats_to_counts[item] +=1
+
