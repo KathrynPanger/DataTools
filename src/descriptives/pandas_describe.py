@@ -32,6 +32,7 @@ def describe_continuous(df: pd.DataFrame, col_name: str) -> dict[str, Number]:
     return summary
 
 
+
 # Produces dataframe of STATA-like summary statistics
 # for any number of variables from the same dataframe
 def describe_many_continuous(df:pd.DataFrame, varlist: list[str]) -> pd.DataFrame:

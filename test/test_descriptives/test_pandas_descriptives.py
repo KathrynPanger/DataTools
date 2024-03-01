@@ -1,7 +1,7 @@
 import pytest
 import pandas as pd
 
-from descriptives.pandas_descriptives import describe_continuous, describe_continuous, describe_categorical, \
+from descriptives.pandas_describe import describe_continuous, describe_continuous, describe_categorical, \
     get_frequencies, describe_many_continuous
 from pandas.testing import assert_frame_equal
 
@@ -33,6 +33,7 @@ def test_get_frequencies(pandas_data):
     print(expected_result_df)
     assert_frame_equal(result_df, expected_result_df, check_dtype=False)
 
+# TODO: Refactor these functions to take one argument: column
 def test_describe_categorical(pandas_data):
     result = describe_categorical(df=pandas_data, col_name="cat_var").set_index(keys="value").sort_values(by="value")
     expected_result_dict = {'value':

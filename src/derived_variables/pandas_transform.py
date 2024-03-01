@@ -2,8 +2,8 @@ import pandas as pd
 
 
 # TODO write test functions for all these
-def center(df: pd.DataFrame, col_name: str):
-    return df[col_name] - df[col_name].mean()
+def center(df_col: pd.DataFrame):
+    return df_col - df_col.mean()
 
 # def z_normalize():
 #     pass
@@ -12,8 +12,11 @@ def center(df: pd.DataFrame, col_name: str):
 #     pass
 #
 #
-# def categorical_strings_to_values():
-#     pass
+def categorical_to_numeric(df_column):
+    unique_dict = {df_column.unique()[i]: i for i in range(len(df_column.unique()))}
+    return df_column.map(unique_dict)
+
+
 #
 # def to_dummy():
 #     pass
