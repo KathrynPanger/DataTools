@@ -8,3 +8,9 @@ def test_center():
     result = center(uncentered_data)
     expected_result = pd.DataFrame({"data": [-4,-3,-2,-1,0,1,2,3,4]})
     assert_frame_equal(result, expected_result, check_dtype=False)
+
+def test_mean_normalize():
+    pass
+
+def test_min_max_scale_normalize():
+    pass

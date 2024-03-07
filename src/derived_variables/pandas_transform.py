@@ -2,19 +2,19 @@ import pandas as pd
 
 
 # TODO write test functions for all these
-def center(df_col: pd.DataFrame):
+def center(df_col: pd.DataFrame) -> pd.DataFrame:
     return df_col - df_col.mean()
 
-# def z_normalize():
-#     pass
-#
-# def min_max_normalize():
-#     pass
-#
-#
-def categorical_to_numeric(df_column):
-    unique_dict = {df_column.unique()[i]: i for i in range(len(df_column.unique()))}
-    return df_column.map(unique_dict)
+def mean_normalize(df_col: pd.DataFrame) -> pd.DataFrame:
+    return (df_col - df_col.mean()) / df_col.std()
+
+def min_max_scale_normalize(df_col: pd.DataFrame) -> pd.DataFrame:
+    return (df_col - df_col.min()) / (df_col.max() - df_col.min())
+
+
+def categorical_to_numeric(df_col: pd.DataFrame) -> pd.DataFrame:
+    unique_dict = {df_col.unique()[i]: i for i in range(len(df_col.unique()))}
+    return df_col.map(unique_dict)
 
 
 #
