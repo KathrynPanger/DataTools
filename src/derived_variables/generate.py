@@ -12,3 +12,4 @@ def geographic_exposure():
 
 def mark_outliers_for_variables(df: pd.DataFrame,varible_names: list[str]):
     pass
+
