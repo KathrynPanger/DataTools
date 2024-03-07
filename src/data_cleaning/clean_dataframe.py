@@ -8,3 +8,4 @@ def clean_columns(df: pd.DataFrame, cleaning_functions_list:list[Callable]) -> p
             column_name_map[item] = function(column_name_map[item])
     df.rename(columns=column_name_map, inplace=True)
     return df
+
