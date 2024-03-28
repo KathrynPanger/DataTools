@@ -1,6 +1,6 @@
 import pandas as pd
 from pandas.testing import assert_frame_equal
-from derived_variables.pandas_transform import center, mean_normalize, min_max_scale_normalize
+from generate.transform.scale_normalize import center, mean_normalize, min_max_scale_normalize
 
 
 def test_center():
