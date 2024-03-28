@@ -1,8 +1,15 @@
 from collections.abc import Sequence, Collection
 from numbers import Number
 import pandas as pd
+def get_frequencies_sequence(data: Sequence) -> dict[str, Number]:
+    cats_to_counts = {}
+    for item in data:
+        if item not in cats_to_counts:
+            cats_to_counts[item] = 1
+        else:
+            cats_to_counts[item] +=1
 
-def get_frequencies(df: pd.DataFrame, col_name: str) -> dict[str, list[Number]]:
+def get_frequencies_dataframe(df: pd.DataFrame, col_name: str) -> dict[str, list[Number]]:
     unique_values = set(df[col_name])
     cats_to_counts = {"value": [], "count": []}
     for cat in unique_values:
@@ -12,7 +19,7 @@ def get_frequencies(df: pd.DataFrame, col_name: str) -> dict[str, list[Number]]:
 
 
 def describe_categorical(df: pd.DataFrame, col_name: str) -> dict[str, Number]:
-    summary = pd.DataFrame(get_frequencies(df, col_name))
+    summary = pd.DataFrame(get_frequencies_dataframe(df, col_name))
     n = len(summary)
     summary["relative_frequency"] = summary["count"]/n
     return summary

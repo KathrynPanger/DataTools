@@ -1,7 +1,7 @@
 import pandas as pd
 from pandas._libs.internals import defaultdict
 from unidecode import unidecode
-#TODO: test these and cleaning functions
+#TODO: test these and clean functions
 
 def convert_utf8(original_file_path: str, new_file_path: str):
     df = pd.read_csv(original_file_path, converters=defaultdict(lambda i: str))

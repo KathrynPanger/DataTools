@@ -1,8 +1,8 @@
 import pytest
 import pandas as pd
 
-from descriptives.pandas_describe import describe_continuous, describe_continuous, describe_categorical, \
-    get_frequencies, describe_many_continuous
+from describe.descriptives import describe_continuous, describe_continuous, describe_categorical, \
+    get_frequencies_dataframe, describe_many_continuous
 from pandas.testing import assert_frame_equal
 
 
@@ -25,7 +25,7 @@ def test_describe_continuous(pandas_data):
     }
 
 def test_get_frequencies(pandas_data):
-    result = get_frequencies(df=pandas_data, col_name="cat_var")
+    result = get_frequencies_dataframe(df=pandas_data, col_name="cat_var")
     expected_result = {'value': ['TM', 'NB', 'Female', 'Male', 'TW'], 'count': [1, 1, 2, 2, 1]}
     expected_result_df =pd.DataFrame(expected_result).sort_values(by="value").set_index(keys="value")
     result_df = pd.DataFrame(result).sort_values(by="value").set_index(keys="value")
